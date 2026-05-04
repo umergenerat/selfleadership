@@ -17,13 +17,13 @@ import { useApp } from '../context/AppContext';
 const RESOURCES_BANK = [
   {
     id: 1,
-    title: 'لعبة النظمات التفاعلية',
+    title: 'لعبة النظمات التفاعلية / Jeu des Systèmes Interactif',
     type: 'لعبة تفاعلية',
     subject: 'الرياضيات',
-    keywords: ['نظمات', 'معادلات', 'مجهولين'],
+    keywords: ['نظمات', 'معادلات', 'مجهولين', 'système', 'équation'],
     icon: Gamepad2,
     color: 'from-blue-500 to-cyan-500',
-    description: 'تطبيق تفاعلي يتيح لك حل النظمات ذات مجهولين باستخدام الرسم المبياني والتعويض لتبسيط المفهوم.'
+    description: 'تطبيق تفاعلي يتيح لك حل النظمات ذات مجهولين باستخدام الرسم المبياني والتعويض. \nApplication interactive pour résoudre des systèmes à deux inconnues avec graphiques.'
   },
   {
     id: 2,
@@ -37,23 +37,23 @@ const RESOURCES_BANK = [
   },
   {
     id: 3,
-    title: 'رحلة الأرقام الممتعة',
+    title: 'رحلة الأرقام / Le Voyage des Nombres',
     type: 'لعبة تفاعلية',
     subject: 'الرياضيات',
-    keywords: ['جمع', 'طرح', 'حساب', 'أرقام'],
+    keywords: ['جمع', 'طرح', 'حساب', 'أرقام', 'calcul', 'nombres'],
     icon: Gamepad2,
     color: 'from-emerald-500 to-teal-500',
-    description: 'لعبة تفاعلية لتعلم العمليات الحسابية الأساسية بطريقة ممتعة.'
+    description: 'لعبة تفاعلية لتعلم العمليات الحسابية الأساسية. \nJeu interactif pour apprendre les opérations de base de manière ludique.'
   },
   {
     id: 4,
-    title: 'استكشاف الفضاء والجاذبية',
+    title: 'استكشاف الفضاء والجاذبية / Gravité et Espace',
     type: 'محاكاة',
     subject: 'الفيزياء',
-    keywords: ['فضاء', 'كواكب', 'شمس', 'جاذبية', 'فيزياء'],
+    keywords: ['فضاء', 'كواكب', 'شمس', 'جاذبية', 'فيزياء', 'gravité', 'espace', 'physique'],
     icon: PlayCircle,
     color: 'from-orange-500 to-rose-500',
-    description: 'محاكاة افتراضية لاستكشاف الكواكب والمجموعة الشمسية لتبسيط المفاهيم الفيزيائية.'
+    description: 'محاكاة افتراضية لاستكشاف المجموعة الشمسية وتبسيط المفاهيم الفيزيائية. \nSimulation virtuelle pour simplifier les concepts de la physique spatiale.'
   },
   {
     id: 5,
@@ -72,11 +72,11 @@ const EXERCISES_BANK = [
   {
     id: 1,
     subject: 'الرياضيات',
-    keywords: ['نظمات', 'مجهولين'],
-    question: 'إذا كان x + y = 5 و x - y = 1، فما هي قيمة كل من x و y؟',
+    keywords: ['نظمات', 'مجهولين', 'système', 'équation'],
+    question: 'إذا كان x + y = 5 و x - y = 1، فما هي قيمة كل من x و y؟ \n Si x + y = 5 et x - y = 1, quelles sont les valeurs de x et y ?',
     options: ['x=2, y=3', 'x=3, y=2', 'x=4, y=1', 'x=1, y=4'],
     correctIndex: 1,
-    explanation: 'بجمع المعادلتين نحصل على 2x = 6، إذن x = 3. وبتعويض x نجد y = 2.'
+    explanation: 'بجمع المعادلتين نحصل على 2x = 6، إذن x = 3. وبتعويض x نجد y = 2. \n En additionnant les deux équations, on obtient 2x=6, donc x=3. En remplaçant x, on trouve y=2.'
   },
   {
     id: 2,
@@ -90,11 +90,11 @@ const EXERCISES_BANK = [
   {
     id: 3,
     subject: 'الرياضيات',
-    keywords: ['جمع', 'طرح', 'حساب'],
-    question: 'في معادلة من الدرجة الأولى: 2x - 4 = 0، ما هي قيمة x؟',
+    keywords: ['جمع', 'طرح', 'حساب', 'équation', 'calcul'],
+    question: 'في معادلة من الدرجة الأولى: 2x - 4 = 0، ما هي قيمة x؟ \n Dans l\'équation du 1er degré : 2x - 4 = 0, quelle est la valeur de x ?',
     options: ['1', '2', '4', '-2'],
     correctIndex: 1,
-    explanation: '2x = 4 إذن x = 4/2 أي x = 2.'
+    explanation: '2x = 4 إذن x = 4/2 أي x = 2. \n 2x = 4 donc x = 4/2, soit x = 2.'
   },
   {
     id: 4,
@@ -280,7 +280,7 @@ const InteractiveResources = () => {
 
           <div className="max-w-2xl mx-auto">
             <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 md:p-8 mb-6">
-              <h4 className="text-xl md:text-2xl font-medium text-white leading-relaxed text-center mb-8" dir="auto">
+              <h4 className="text-xl md:text-2xl font-medium text-white leading-relaxed text-center mb-8 whitespace-pre-line" dir="auto">
                 {currentExercise.question}
               </h4>
 
@@ -326,7 +326,7 @@ const InteractiveResources = () => {
                     {isCorrect ? <CheckCircle2 size={20} /> : <XCircle size={20} />}
                     {isCorrect ? 'إجابة صحيحة!' : 'حاول مرة أخرى!'}
                   </p>
-                  <p className="mt-2 text-sm opacity-90" dir="auto">{currentExercise.explanation}</p>
+                  <p className="mt-2 text-sm opacity-90 whitespace-pre-line" dir="auto">{currentExercise.explanation}</p>
                 </div>
               )}
             </div>
