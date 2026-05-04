@@ -76,7 +76,7 @@ const EXERCISES_BANK = [
     question: 'إذا كان x + y = 5 و x - y = 1، فما هي قيمة كل من x و y؟',
     options: ['x=2, y=3', 'x=3, y=2', 'x=4, y=1', 'x=1, y=4'],
     correctIndex: 1,
-    explanation: 'ممتاز! بجمع المعادلتين نحصل على 2x = 6، إذن x = 3. وبتعويض x نجد y = 2.'
+    explanation: 'بجمع المعادلتين نحصل على 2x = 6، إذن x = 3. وبتعويض x نجد y = 2.'
   },
   {
     id: 2,
@@ -85,7 +85,7 @@ const EXERCISES_BANK = [
     question: "Complétez : Si j'avais de l'argent, j'_____ une nouvelle voiture.",
     options: ['achetais', 'achèterai', 'achèterais', 'acheterait'],
     correctIndex: 2,
-    explanation: "Très bien! Après 'Si + Imparfait', on utilise le Conditionnel Présent (achèterais)."
+    explanation: "Après 'Si + Imparfait', on utilise le Conditionnel Présent (achèterais)."
   },
   {
     id: 3,
@@ -94,7 +94,7 @@ const EXERCISES_BANK = [
     question: 'في معادلة من الدرجة الأولى: 2x - 4 = 0، ما هي قيمة x؟',
     options: ['1', '2', '4', '-2'],
     correctIndex: 1,
-    explanation: 'ممتاز! 2x = 4 إذن x = 4/2 أي x = 2.'
+    explanation: '2x = 4 إذن x = 4/2 أي x = 2.'
   },
   {
     id: 4,
@@ -103,7 +103,7 @@ const EXERCISES_BANK = [
     question: 'في جملة "أكل الولد التفاحة"، ما هو إعراب كلمة "الولد"؟',
     options: ['مبتدأ', 'فاعل', 'مفعول به', 'خبر'],
     correctIndex: 1,
-    explanation: 'أحسنت! "الولد" هو الفاعل المرفوع بالضمة الظاهرة على آخره.'
+    explanation: '"الولد" هو الفاعل المرفوع بالضمة الظاهرة على آخره.'
   }
 ];
 
