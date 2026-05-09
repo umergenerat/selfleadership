@@ -17,53 +17,75 @@ import { useApp } from '../context/AppContext';
 const RESOURCES_BANK = [
   {
     id: 1,
-    title: 'لعبة النظمات التفاعلية / Jeu des Systèmes Interactif',
-    type: 'لعبة تفاعلية',
+    title: 'حل النظمات / Résolution des systèmes',
+    type: 'فيديو تفاعلي',
     subject: 'الرياضيات',
     keywords: ['نظمات', 'معادلات', 'مجهولين', 'système', 'équation'],
-    icon: Gamepad2,
+    icon: PlayCircle,
     color: 'from-blue-500 to-cyan-500',
-    description: 'تطبيق تفاعلي يتيح لك حل النظمات ذات مجهولين باستخدام الرسم المبياني والتعويض. \nApplication interactive pour résoudre des systèmes à deux inconnues avec graphiques.'
+    description: 'فيديو تعليمي مبسط يشرح طرق حل النظمات ذات مجهولين باستخدام التعويض والتأليفة الخطية.',
+    url: 'https://www.youtube.com/embed/4K5H3sZ3nWg',
+    source: 'YouTube'
   },
   {
     id: 2,
-    title: 'Le Conditionnel Présent : Jeu Interactif',
-    type: 'لعبة تعليمية',
+    title: 'Le Conditionnel Présent',
+    type: 'فيديو تعليمي',
     subject: 'اللغة الفرنسية',
     keywords: ['conditionnel', 'conjugaison', 'présent'],
     icon: PlayCircle,
     color: 'from-purple-500 to-indigo-500',
-    description: 'تمارين تفاعلية لتعلم وتصريف الأفعال في الشرط الحاضر (Conditionnel Présent) بسهولة ومتعة.'
+    description: 'شرح مفصل ومبسط لقواعد تصريف الأفعال في الشرط الحاضر (Le conditionnel présent) مع أمثلة للتطبيق.',
+    url: 'https://www.youtube.com/embed/q_G_gQYfudI',
+    source: 'YouTube'
   },
   {
     id: 3,
-    title: 'رحلة الأرقام / Le Voyage des Nombres',
-    type: 'لعبة تفاعلية',
+    title: 'تحدي الحساب / PhET Arithmetic',
+    type: 'لعبة تفاعلية مفتوحة المصدر',
     subject: 'الرياضيات',
     keywords: ['جمع', 'طرح', 'حساب', 'أرقام', 'calcul', 'nombres'],
     icon: Gamepad2,
     color: 'from-emerald-500 to-teal-500',
-    description: 'لعبة تفاعلية لتعلم العمليات الحسابية الأساسية. \nJeu interactif pour apprendre les opérations de base de manière ludique.'
+    description: 'لعبة تفاعلية مجانية من PhET (جامعة كولورادو) لتعلم وتدريب الدماغ على العمليات الحسابية الأساسية بسرعات مختلفة.',
+    url: 'https://phet.colorado.edu/sims/html/arithmetic/latest/arithmetic_all.html',
+    source: 'PhET Interactive Simulations'
   },
   {
     id: 4,
-    title: 'استكشاف الفضاء والجاذبية / Gravité et Espace',
-    type: 'محاكاة',
+    title: 'الجاذبية والأوربت / Gravity and Orbits',
+    type: 'محاكاة علمية',
     subject: 'الفيزياء',
     keywords: ['فضاء', 'كواكب', 'شمس', 'جاذبية', 'فيزياء', 'gravité', 'espace', 'physique'],
-    icon: PlayCircle,
+    icon: Target,
     color: 'from-orange-500 to-rose-500',
-    description: 'محاكاة افتراضية لاستكشاف المجموعة الشمسية وتبسيط المفاهيم الفيزيائية. \nSimulation virtuelle pour simplifier les concepts de la physique spatiale.'
+    description: 'محاكاة تفاعلية مفتوحة المصدر لاستكشاف قوانين الجاذبية وحركة الكواكب والأقمار في المجموعة الشمسية.',
+    url: 'https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits_all.html?locale=ar',
+    source: 'PhET Interactive Simulations'
   },
   {
     id: 5,
-    title: 'قصص الحروف والكلمات',
-    type: 'قصة تفاعلية',
+    title: 'قواعد الإملاء في اللغة العربية',
+    type: 'فيديو تعليمي',
     subject: 'اللغة العربية',
-    keywords: ['حروف', 'كلمات', 'إملاء', 'قراءة', 'تعبير'],
+    keywords: ['حروف', 'كلمات', 'إملاء', 'قراءة', 'تعبير', 'قواعد'],
     icon: BookOpen,
     color: 'from-pink-500 to-rose-400',
-    description: 'تعلم قراءة وتشكيل الكلمات وتحسين التعبير من خلال قصص مشوقة ومبسطة.'
+    description: 'درس مرئي يوضح أهم قواعد الإملاء وتصحيح الأخطاء الشائعة في الكتابة والتعبير باللغة العربية.',
+    url: 'https://www.youtube.com/embed/Zf_2V7D_84g',
+    source: 'YouTube'
+  },
+  {
+    id: 6,
+    title: 'GeoGebra: الآلة الحاسبة الرسومية',
+    type: 'تطبيق تفاعلي',
+    subject: 'الرياضيات',
+    keywords: ['دوال', 'مبيان', 'هندسة', 'fonctions', 'graphique'],
+    icon: Gamepad2,
+    color: 'from-cyan-500 to-blue-600',
+    description: 'تطبيق GeoGebra مفتوح المصدر لرسم الدوال الرياضية والمنحنيات وحل المعادلات بيانياً بشكل تفاعلي.',
+    url: 'https://www.geogebra.org/classic/graphing',
+    source: 'GeoGebra'
   }
 ];
 
@@ -335,7 +357,7 @@ const InteractiveResources = () => {
                           setActiveGame(resource.id);
                         }}
                         className={`flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-xl bg-gradient-to-r ${resource.color} text-white shadow-lg hover:shadow-xl transition-all hover:scale-105`}>
-                        <span>ابدأ الآن</span>
+                        <span>عرض المحتوى</span>
                         <ArrowRight size={16} />
                       </button>
                     </div>
@@ -355,52 +377,50 @@ const InteractiveResources = () => {
             const Icon = resource.icon;
             
             return (
-              <div className="flex flex-col h-[600px]">
-                <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-700/50">
+              <div className="flex flex-col h-[700px]">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 pb-6 border-b border-slate-700/50 gap-4">
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${resource.color} flex items-center justify-center shadow-lg`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${resource.color} flex items-center justify-center shadow-lg shrink-0`}>
                       <Icon className="text-white" size={24} />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white">{resource.title}</h3>
-                      <p className="text-sm text-slate-400">{resource.subject}</p>
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
+                        <span className="text-sm text-slate-400">{resource.subject}</span>
+                        <span className="text-slate-600 hidden md:inline">•</span>
+                        <span className="text-sm font-medium text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-md">{resource.source}</span>
+                      </div>
                     </div>
                   </div>
-                  <button 
-                    onClick={() => setActiveGame(null)}
-                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
-                  >
-                    <XCircle size={24} />
-                  </button>
+                  <div className="flex items-center gap-3 w-full md:w-auto">
+                    <a 
+                      href={resource.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition-colors text-sm font-medium"
+                    >
+                      <ArrowRight size={16} className="-rotate-45" />
+                      <span>فتح في نافذة جديدة</span>
+                    </a>
+                    <button 
+                      onClick={() => setActiveGame(null)}
+                      className="p-2 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-colors"
+                      title="إغلاق"
+                    >
+                      <XCircle size={24} />
+                    </button>
+                  </div>
                 </div>
                 
-                <div className="flex-1 bg-slate-900/50 rounded-2xl border border-slate-700/50 flex flex-col items-center justify-center relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-fuchsia-500/5" />
-                  
-                  {/* Mock Loading Animation */}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <div className="w-20 h-20 mb-8 relative">
-                      <div className="absolute inset-0 rounded-full border-t-2 border-indigo-500 animate-spin" />
-                      <div className="absolute inset-2 rounded-full border-r-2 border-fuchsia-500 animate-spin animation-delay-150" />
-                      <div className="absolute inset-4 rounded-full border-b-2 border-emerald-500 animate-spin animation-delay-300" />
-                      <Icon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400" size={24} />
-                    </div>
-                    
-                    <h4 className="text-2xl font-black text-white mb-4">جاري تحميل المحتوى التفاعلي...</h4>
-                    <p className="text-slate-400 text-center max-w-md mb-8">
-                      {resource.description}
-                    </p>
-                    
-                    <div className="flex gap-2">
-                      <span className="w-2 h-2 rounded-full bg-indigo-500 animate-bounce" />
-                      <span className="w-2 h-2 rounded-full bg-fuchsia-500 animate-bounce animation-delay-150" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce animation-delay-300" />
-                    </div>
-                  </div>
-                  
-                  {/* Decorative Elements */}
-                  <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-700" />
-                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-fuchsia-500/10 rounded-full blur-3xl group-hover:bg-fuchsia-500/20 transition-colors duration-700" />
+                <div className="flex-1 bg-slate-900 rounded-2xl border border-slate-700/50 relative overflow-hidden group shadow-2xl">
+                  {/* Iframe for the actual resource */}
+                  <iframe 
+                    src={resource.url}
+                    className="absolute inset-0 w-full h-full border-0 bg-white"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={resource.title}
+                  />
                 </div>
               </div>
             );
