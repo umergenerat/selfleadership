@@ -38,6 +38,10 @@
     33% { transform: translate(30px, -20px) scale(1.05); }
     66% { transform: translate(-20px, 15px) scale(0.95); }
   }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+  }
 }
 
 /* ========== Base ========== */
@@ -207,6 +211,10 @@ body {
 .stagger-3 { animation-delay: 0.25s; }
 .stagger-4 { animation-delay: 0.35s; }
 .stagger-5 { animation-delay: 0.45s; }
+
+/* ========== Animation Delays ========== */
+.animation-delay-150 { animation-delay: 150ms; }
+.animation-delay-300 { animation-delay: 300ms; }
 
 /* ========== Scrollbar ========== */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
