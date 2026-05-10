@@ -14,7 +14,9 @@ import {
   Sparkles,
   Gamepad2,
   Info,
-  Compass
+  Compass,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import Schedule from './components/Schedule';
@@ -35,9 +37,21 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLanding, setShowLanding] = useState(true);
   const [currentView, setCurrentView] = useState<View>('dashboard');
+  const [viewHistory, setViewHistory] = useState<View[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const { profile: student, toggleHealthAlert, credentials, preferences, t } = useApp();
   const healthAlert = student.healthAlertActive;
+
+  // Handle browser close/refresh confirmation
+  React.useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
   React.useEffect(() => {
     if (preferences.theme === 'light') {
@@ -66,7 +80,7 @@ export default function App() {
     resources: <InteractiveResources />,
     orientation: <Guidance />,
     guide: <UserGuide />,
-    settings: <Settings onClose={() => setCurrentView('dashboard')} />
+    settings: <Settings onClose={goBack} />
   };
 
   const navItems = [
@@ -80,6 +94,32 @@ export default function App() {
     { id: 'guide', label: t('guide'), icon: Info },
     { id: 'settings', label: t('settings'), icon: SettingsIcon },
   ];
+
+  const navigateTo = (view: View) => {
+    if (view !== currentView) {
+      setViewHistory(prev => [...prev, currentView]);
+      setCurrentView(view);
+    }
+    setIsSidebarOpen(false);
+  };
+
+  const goBack = () => {
+    if (viewHistory.length > 0) {
+      const prevView = viewHistory[viewHistory.length - 1];
+      setViewHistory(prev => prev.slice(0, -1));
+      setCurrentView(prevView);
+    }
+  };
+
+  const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
+    setShowLogoutConfirm(false);
+    setIsAuthenticated(false);
+    setShowLanding(true);
+  };
 
   const handleExportPDF = () => {
     window.print();
@@ -138,10 +178,7 @@ export default function App() {
             return (
               <button
                 key={item.id}
-                onClick={() => {
-                  setCurrentView(item.id as View);
-                  setIsSidebarOpen(false);
-                }}
+                onClick={() => navigateTo(item.id as View)}
                 className={`w-full flex items-center gap-3 px-5 py-3 mx-2 rounded-xl transition-all duration-200 text-sm font-medium ${
                   isActive 
                     ? 'text-emerald-400 nav-item-active' 
@@ -167,7 +204,7 @@ export default function App() {
                 <span>{t('export_pdf')}</span>
               </button>
               <button 
-                onClick={() => setIsAuthenticated(false)}
+                onClick={handleLogout}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded-xl transition-colors text-sm"
               >
                 <LogOut size={16} />
@@ -190,6 +227,17 @@ export default function App() {
             >
               <Menu size={24} />
             </button>
+            {viewHistory.length > 0 && (
+              <button 
+                onClick={goBack}
+                className="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-1"
+                title={t('back')}
+              >
+                <div className="bg-white/10 p-2 rounded-lg">
+                  {preferences.language === 'ar' ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+                </div>
+              </button>
+            )}
             <div 
               className="bg-[#00a884] p-2.5 rounded-xl shrink-0 shadow-lg shadow-[#00a884]/20 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
               onClick={() => setShowLanding(true)}
@@ -261,6 +309,37 @@ export default function App() {
             {views[currentView]}
           </div>
         </div>
+
+        {/* Logout Confirmation Modal */}
+        {showLogoutConfirm && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+            <div className="glass max-w-md w-full p-8 border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-300">
+              <div className="flex flex-col items-center text-center gap-6">
+                <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
+                  <LogOut size={32} className="text-red-400" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-white">{t('exit_confirm_title')}</h3>
+                  <p className="text-slate-400">{t('exit_confirm_msg')}</p>
+                </div>
+                <div className="flex gap-4 w-full">
+                  <button 
+                    onClick={() => setShowLogoutConfirm(false)}
+                    className="flex-1 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all"
+                  >
+                    {t('cancel')}
+                  </button>
+                  <button 
+                    onClick={confirmLogout}
+                    className="flex-1 px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold shadow-lg shadow-red-500/25 transition-all"
+                  >
+                    {t('confirm')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

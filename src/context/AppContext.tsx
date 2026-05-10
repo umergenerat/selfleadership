@@ -236,7 +236,12 @@ export const AppProvider: React.FC<{children: ReactNode}> = ({ children }) => {
         install: 'تثبيت',
         share: 'مشاركة',
         app_title: 'رائد',
-        app_subtitle: 'بوابة التطوير الذاتي والمطالعة الموجهة للمتعلم'
+        app_subtitle: 'بوابة التطوير الذاتي والمطالعة الموجهة للمتعلم',
+        exit_confirm_title: 'تأكيد الخروج',
+        exit_confirm_msg: 'هل أنت متأكد من رغبتك في الخروج من التطبيق؟',
+        confirm: 'تأكيد',
+        cancel: 'إلغاء',
+        back: 'رجوع'
       },
       fr: {
         dashboard: 'Tableau de bord',
@@ -261,7 +266,12 @@ export const AppProvider: React.FC<{children: ReactNode}> = ({ children }) => {
         install: 'Installer',
         share: 'Partager',
         app_title: 'RAED',
-        app_subtitle: 'Portail de développement personnel et lecture dirigée'
+        app_subtitle: 'Portail de développement personnel et lecture dirigée',
+        exit_confirm_title: 'Confirmer la sortie',
+        exit_confirm_msg: 'Êtes-vous sûr de vouloir quitter l\'application ?',
+        confirm: 'Confirmer',
+        cancel: 'Annuler',
+        back: 'Retour'
       },
       en: {
         dashboard: 'Dashboard',
@@ -286,7 +296,12 @@ export const AppProvider: React.FC<{children: ReactNode}> = ({ children }) => {
         install: 'Install',
         share: 'Share',
         app_title: 'RAED',
-        app_subtitle: 'Self-Leadership Portal and Guided Reading'
+        app_subtitle: 'Self-Leadership Portal and Guided Reading',
+        exit_confirm_title: 'Confirm Exit',
+        exit_confirm_msg: 'Are you sure you want to exit the app?',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        back: 'Back'
       }
     };
     return translations[preferences.language]?.[key] || translations['ar']?.[key] || key;
