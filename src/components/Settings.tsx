@@ -325,7 +325,7 @@ export default function Settings({ onClose }: { onClose?: () => void }) {
                  </select>
               </div>
 
-               <div className="pt-4 border-t border-white/5">
+               <div className="pt-4 border-t border-white/5 space-y-4">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <div className="relative">
                     <input 
@@ -342,6 +342,72 @@ export default function Settings({ onClose }: { onClose?: () => void }) {
                     تفعيل الإشعارات التحفيزية
                   </div>
                 </label>
+
+                <div className="pt-2"></div>
+                
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <div className="relative">
+                    <input 
+                      type="checkbox" 
+                      className="sr-only" 
+                      checked={preferences.absenceAlerts?.enabled || false}
+                      onChange={(e) => setPreferencesState({
+                        ...preferences, 
+                        absenceAlerts: { ...preferences.absenceAlerts, enabled: e.target.checked }
+                      })}
+                    />
+                    <div className={`block w-10 h-6 rounded-full transition-colors ${preferences.absenceAlerts?.enabled ? 'bg-red-500' : 'bg-slate-600'}`}></div>
+                    <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${preferences.absenceAlerts?.enabled ? 'transform translate-x-4' : ''}`}></div>
+                  </div>
+                  <div className="text-slate-300 font-medium">
+                    تفعيل تنبيهات الغياب والانقطاع
+                  </div>
+                </label>
+
+                {preferences.absenceAlerts?.enabled && (
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-red-500/20 space-y-3">
+                    <div>
+                      <label className="block text-xs font-medium text-slate-400 mb-1">بعد كم يوم من الانقطاع يتم التنبيه؟</label>
+                      <input 
+                        type="number" 
+                        min="1"
+                        max="30"
+                        value={preferences.absenceAlerts?.thresholdDays || 2}
+                        onChange={(e) => setPreferencesState({
+                          ...preferences, 
+                          absenceAlerts: { ...preferences.absenceAlerts, thresholdDays: parseInt(e.target.value) || 2 }
+                        })}
+                        className="w-full bg-slate-800/50 border border-white/10 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-400 mb-1">رقم الهاتف لتلقي التنبيه (واتساب/SMS)</label>
+                      <input 
+                        type="text" 
+                        value={preferences.absenceAlerts?.phoneNumber || ''}
+                        onChange={(e) => setPreferencesState({
+                          ...preferences, 
+                          absenceAlerts: { ...preferences.absenceAlerts, phoneNumber: e.target.value }
+                        })}
+                        className="w-full bg-slate-800/50 border border-white/10 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all text-left"
+                        dir="ltr"
+                        placeholder="212600000000"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-400 mb-1">نص الرسالة</label>
+                      <textarea 
+                        value={preferences.absenceAlerts?.alertText || ''}
+                        onChange={(e) => setPreferencesState({
+                          ...preferences, 
+                          absenceAlerts: { ...preferences.absenceAlerts, alertText: e.target.value }
+                        })}
+                        className="w-full bg-slate-800/50 border border-white/10 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all"
+                        rows={2}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

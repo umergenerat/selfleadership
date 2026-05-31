@@ -40,10 +40,19 @@ export interface UserProfile {
   counselorPhone?: string;
 }
 
+export interface AbsenceAlertSettings {
+  enabled: boolean;
+  thresholdDays: number;
+  phoneNumber: string;
+  alertText: string;
+  lastLoginDate: string;
+}
+
 export interface UserPreferences {
   language: string;
   theme: string;
   notifications: boolean;
+  absenceAlerts: AbsenceAlertSettings;
 }
 
 // Reading quota configuration (academic year / term)
@@ -141,7 +150,14 @@ const defaultProfile: UserProfile = {
 const defaultPreferences: UserPreferences = {
   language: "ar",
   theme: "frosted",
-  notifications: true
+  notifications: true,
+  absenceAlerts: {
+    enabled: false,
+    thresholdDays: 2,
+    phoneNumber: "",
+    alertText: "تنبيه: لقد تغيبت عن استخدام منصة رائد لعدة أيام. يرجى المتابعة لضمان استمرارية التطور.",
+    lastLoginDate: new Date().toISOString()
+  }
 };
 
 const defaultReadingConfig: ReadingConfig = {

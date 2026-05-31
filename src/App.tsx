@@ -16,7 +16,8 @@ import {
   Info,
   Compass,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  AlertCircle
 } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import Schedule from './components/Schedule';
@@ -40,7 +41,8 @@ export default function App() {
   const [viewHistory, setViewHistory] = useState<View[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const { profile: student, toggleHealthAlert, credentials, preferences, t } = useApp();
+  const [showAbsenceAlert, setShowAbsenceAlert] = useState(false);
+  const { profile: student, toggleHealthAlert, credentials, preferences, setPreferences, t } = useApp();
   const healthAlert = student.healthAlertActive;
 
   // Persist auth and landing state
@@ -58,6 +60,35 @@ export default function App() {
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
+
+  // Absence tracking
+  React.useEffect(() => {
+    if (isAuthenticated && preferences.absenceAlerts?.enabled) {
+      const lastDateStr = preferences.absenceAlerts.lastLoginDate;
+      const threshold = preferences.absenceAlerts.thresholdDays || 2;
+      
+      if (lastDateStr) {
+        const lastDate = new Date(lastDateStr);
+        const today = new Date();
+        const diffTime = today.getTime() - lastDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+        
+        if (diffDays >= threshold) {
+          setShowAbsenceAlert(true);
+        } else if (diffDays > 0) {
+          setPreferences(prev => ({
+            ...prev,
+            absenceAlerts: { ...prev.absenceAlerts, lastLoginDate: today.toISOString() }
+          }));
+        }
+      } else {
+        setPreferences(prev => ({
+          ...prev,
+          absenceAlerts: { ...prev.absenceAlerts, lastLoginDate: new Date().toISOString() }
+        }));
+      }
+    }
+  }, [isAuthenticated, preferences.absenceAlerts?.enabled]);
 
   React.useEffect(() => {
     if (preferences.theme === 'light') {
@@ -340,6 +371,68 @@ export default function App() {
                     className="flex-1 px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold shadow-lg shadow-red-500/25 transition-all"
                   >
                     {t('confirm')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Absence Alert Modal */}
+        {showAbsenceAlert && preferences.absenceAlerts && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+            <div className="glass max-w-md w-full p-8 border border-red-500/30 shadow-2xl animate-in fade-in zoom-in duration-300 relative">
+              <div className="flex flex-col items-center text-center gap-6">
+                <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
+                  <AlertCircle size={32} className="text-red-400" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-white">تنبيه تأخر عن المنصة</h3>
+                  <p className="text-slate-300">
+                    لقد تجاوزت المدة المسموحة للغياب عن المنصة ({preferences.absenceAlerts.thresholdDays} أيام).
+                    يجب إرسال رسالة التنبيه للمسؤول لمتابعة تطورك.
+                  </p>
+                </div>
+                <div className="flex gap-4 w-full flex-col mt-2">
+                  <a 
+                    href={`https://wa.me/${preferences.absenceAlerts.phoneNumber}?text=${encodeURIComponent(preferences.absenceAlerts.alertText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setPreferences(prev => ({
+                        ...prev,
+                        absenceAlerts: { ...prev.absenceAlerts, lastLoginDate: new Date().toISOString() }
+                      }));
+                      setShowAbsenceAlert(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/25 transition-all"
+                  >
+                    إرسال عبر واتساب (WhatsApp)
+                  </a>
+                  <a 
+                    href={`sms:${preferences.absenceAlerts.phoneNumber}?body=${encodeURIComponent(preferences.absenceAlerts.alertText)}`}
+                    onClick={() => {
+                      setPreferences(prev => ({
+                        ...prev,
+                        absenceAlerts: { ...prev.absenceAlerts, lastLoginDate: new Date().toISOString() }
+                      }));
+                      setShowAbsenceAlert(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/25 transition-all"
+                  >
+                    إرسال رسالة نصية (SMS)
+                  </a>
+                  <button 
+                    onClick={() => {
+                      setPreferences(prev => ({
+                        ...prev,
+                        absenceAlerts: { ...prev.absenceAlerts, lastLoginDate: new Date().toISOString() }
+                      }));
+                      setShowAbsenceAlert(false);
+                    }}
+                    className="mt-2 text-sm text-slate-400 hover:text-white underline transition-colors"
+                  >
+                    تخطي في الوقت الحالي
                   </button>
                 </div>
               </div>
